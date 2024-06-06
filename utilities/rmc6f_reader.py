@@ -28,8 +28,6 @@ class RMC6fReader:
                     break
                 continue
 
-
-        #self.skiprows = 24
         self.df = pd.read_table(filename, skiprows=self.skiprows,
                            header=None, delim_whitespace=True, engine='python')
         if (self.df.shape[1] == 10):
@@ -157,7 +155,6 @@ class RMC6fReader:
         for element in elements:
             for element_refn in elements_refn:
                 element_indices = (df_average['element'] == element) & (df_average['refNumber'] == element_refn)
-                #element_indices = (df_average['refNumber'] == element_refn)
 
                 if not df_average.loc[element_indices, ['x', 'y', 'z']].empty:
                     divided_values = df_average.loc[element_indices, ['cellRefNumX', 'cellRefNumY', 'cellRefNumZ']] / self.get_num_cells()[0:3]
@@ -167,8 +164,7 @@ class RMC6fReader:
                     avg_values = np.average(delta, axis=0)
                     
                     df_average.loc[element_indices, ['x', 'y', 'z']] = divided_values.to_numpy() + avg_values
-    
-                    # Replace applymap with apply and a lambda function
+
                     df_average.loc[element_indices, ['x', 'y', 'z']] = df_average.loc[element_indices, ['x', 'y', 'z']].apply(
                         lambda col: col.map(lambda x: x + 1 if x < 0 else x - 1 if x > 1 else x))
 
