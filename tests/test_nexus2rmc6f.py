@@ -272,7 +272,7 @@ class TestNeXusToRMC6f(unittest.TestCase):
             f.write("Atoms:\n")
             for idx, atom in enumerate(loaded_nexus.atom_data):
                 atom_type_str = atom_types[atom['atom_type']][0]
-                f.write(f"     {idx + 1}   {atom_type_str} [{atom['atom_type']+1}] {atom['x']: .12f} {atom['y']: .12f} {atom['z']: .12f}  {atom['uc_site']}   {atom['uc_x']}   {atom['uc_y']}   {atom['uc_z']}\n")
+                f.write(f"     {idx + 1}   {atom_type_str} [{atom['atom_id']}] {atom['x']: .12f} {atom['y']: .12f} {atom['z']: .12f}  {atom['uc_site']}   {atom['uc_x']}   {atom['uc_y']}   {atom['uc_z']}\n")
 
        
        
